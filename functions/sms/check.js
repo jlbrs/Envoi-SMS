@@ -1,13 +1,11 @@
-const axios = require('axios').default;
-
-exports.handler = function(context, event, callback) {
+exports.handler = function (context, event, callback) {
   const {token, sid} = event;
 
-  if(!token) {
+  if (!token) {
     callback(null, {error_code: 403, error: "Veuillez vous connecter"});
   }
 
-  if(!sid) {
+  if (!sid) {
     callback(null, {error_code: 503, error: "sid manquant"});
   }
 

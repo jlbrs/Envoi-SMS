@@ -1,13 +1,13 @@
 const crypto = require('crypto');
 
-exports.handler = function(context, event, callback) {
+exports.handler = function (context, event, callback) {
   const {username, password} = event;
 
-  if(!username) {
+  if (!username) {
     return callback(null, {error_code: 503, error: "Nom d'utilisateur absent"});
   }
 
-  if(!password) {
+  if (!password) {
     return callback(null, {error_code: 504, error: "Mot de passe absent"});
   }
 
@@ -16,7 +16,7 @@ exports.handler = function(context, event, callback) {
   const hashed_password = hash.digest('hex');
   console.log("hashed: ", hashed_password);
 
-  if(username === context.USERNAME && hashed_password === context.HASHED_PASSWORD) {
+  if (username === context.USERNAME && hashed_password === context.HASHED_PASSWORD) {
     const client = context.getTwilioClient();
     client.sync.services(context.SYNC_SERVICE_SID)
       .documents

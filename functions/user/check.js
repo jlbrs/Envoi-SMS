@@ -1,7 +1,7 @@
-exports.handler = function(context, event, callback) {
+exports.handler = function (context, event, callback) {
   const {token} = event;
 
-  if(!token) {
+  if (!token) {
     callback(null, {valid: false});
   }
 

@@ -1,5 +1,3 @@
-const axios = require('axios').default;
-
 exports.handler = function(context, event, callback) {
   const {token, dest, message} = event;
 
