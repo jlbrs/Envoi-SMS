@@ -190,9 +190,15 @@ function check_sms() {
     .then((response) => {
       if (response.sms) {
         const date = new Date(Date.parse(response.sms.dateCreated));
-
-        $("#sms-alert").hide();
-        $("#sms-success").text("Statut du dernier SMS : " + response.sms.status + " (créé le " + date.toLocaleString() + ")").show();
+        const sms_success = $("#sms-success");
+        const sms_alert = $("#sms-alert");
+        if(response.sms.status === "undelivered" || response.sms.status === "failed") {
+          sms_success.hide();
+          sms_alert.text("Statut du dernier SMS : " + response.sms.status + " (du " + date.toLocaleString() + ")").show();
+        } else {
+          sms_alert.hide();
+          sms_success.text("Statut du dernier SMS : " + response.sms.status + " (du " + date.toLocaleString() + ")").show();
+        }
         if (response.sms.status !== "delivered" && response.sms.status !== "undelivered" && response.sms.status !== "failed") {
           connection_checker = setTimeout(check_sms, 1000);
         }
